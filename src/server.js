@@ -1,12 +1,15 @@
-'use strict';
+require('./DataBase/sync.js');
+
 const connection = require('./DataBase/connection.js');
-var express = require ('express');
-var app = express();
+const express = require ('express');
+const app = express();
+const port = process.env.PORT || 1337;
+
+//routers
+const restaurantrouter = require('./Routers/restaurantrouter.js');
 
 app.use(express.json()); // va a recibir archivos JSON
 app.use(express.urlencoded({ extended: false }));
-
-var port = process.env.PORT || 1337;
 
 connection.sync({force: false}) // metodo que sincroniza la base de datos
     .then(() => { 
@@ -16,7 +19,9 @@ connection.sync({force: false}) // metodo que sincroniza la base de datos
         })
     })  
     .catch((error) =>{
-        console.error('Error al sincronizar la base de datos', error);
-
-    });  
+        console.error('Error syncing DataBase' + error);
+    });
+    
+//api
+app.use('/api', restaurantrouter);
 
