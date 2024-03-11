@@ -10,7 +10,7 @@ const city = require('../Models/city');
 const departmentjson = require('./jsonfiles/departmentjson');
 const cityjson = require('./jsonfiles/cityjson');
 
-function sync(){
+async function sync(){ // el async (funcion asincrona) es para darle prioridad al sync, el async siempre va con await
 
     // Foreing Key restaurant - product
     restaurant.hasMany(product,{
@@ -40,6 +40,14 @@ function sync(){
     });
     restaurant.belongsTo(city,{
         foreignKey: 'cityId'
+    });
+
+    await connection.sync({force: false}) // metodo que sincroniza la base de datos
+    .then(() => { 
+        console.log('Base de datos sincronizada');
+    })  
+    .catch((error) =>{
+        console.error('Error syncing DataBase' + error);
     });
 
     //create JSON
