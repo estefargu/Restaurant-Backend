@@ -1,13 +1,13 @@
 require('express');
 const city = require('../Models/city');
 
-async function listCity (req,res){
+async function listCities (req,res){
     try{
         await city.findAll({
             atrributes: [
-                'cityId',
-                'cityName',
-                'departmentId', 
+                ['cityId', 'value'],
+                ['cityName', 'label'],
+                'departmentId' 
             ],
             order:['cityName'],
         }).then(function(data){
@@ -26,5 +26,5 @@ async function listCity (req,res){
 }
 
 module.exports = {
-   listCity
+   listCities
 }
