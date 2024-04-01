@@ -31,7 +31,7 @@ async function listProduct (req,res){
                 'productId',
                 'productName',
                 'productDescription',
-                'productPrice',  
+                'productPrice'  
             ],
             order:['productName'],
             include:{
