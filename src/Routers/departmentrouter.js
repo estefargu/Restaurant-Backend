@@ -1,7 +1,7 @@
 const express = require('express');
-const departmentcontroller = require('../Controllers/departmentcontroller');
+const deparmentcontroller = require('../Controllers/departmentcontroller');
 const router = express.Router();
 
-router.get('/listdepartments', departmentcontroller.listDepartments);
+router.get('/listdepartments', deparmentcontroller.listDepartments);
 
 module.exports = router;

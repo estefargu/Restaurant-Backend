@@ -1,22 +1,23 @@
 require('express');
 const city = require('../Models/city');
 
-async function listCities (req,res){
+async function listCities(req,res){
     try{
         await city.findAll({
-            atrributes: [
+            where: {departmentId : req.params.departmentId},
+            attributes: [
                 ['cityId', 'value'],
                 ['cityName', 'label'],
-                'departmentId' 
+                'departmentId'
             ],
-            order:['cityName'],
-        }).then(function(data){
+            order: ['cityName']
+        }).then(function (data){
             return res.status(200).json({
-                data:data
+                data: data
             });
-        }).catch(error=>{ 
+        }).catch(error => {
             return res.status(400).json({
-                error:error
+                error: error
             });
         })
     }
